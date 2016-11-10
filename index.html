@@ -6,18 +6,20 @@
       padding-top: 20px;
       padding-bottom: 20px;
     }
+    table{
+      font-size:14px;
+    }
   </style>
   <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
   <script type="text/javascript">
-    var data = [
-      {code: 110004280060},
-      {code: 110004280093}
-    ];
-
+    var data;
+    $.getJSON('/bill', function (d) {
+      data = d;
+    });
 
     function search() {
       $('#main').empty();
-      var getData = [], count = 0;
+      var dataHash = {}, count = 0;
       for (var i in data) {
         var iframe = document.createElement("iframe");
         iframe.src = "/getorder?d=" + data[i].code;
@@ -26,18 +28,18 @@
         iframe.onload = function () {
           count++;
           var info = this.contentWindow.document.body.innerText;
-          var new_obj = {};
-          new_obj.code = info.substr(0, 12);
-          new_obj.status = info.substr(13).replace(/\r\n/g, '');
-          getData.push(new_obj);
+          dataHash[info.substr(0, 12)] = info.substr(13).replace(/\r\n/g, '');
         };
         document.getElementById('main').appendChild(iframe);
       }
       _see();
       function _see() {
         if (data.length == count) {
-          console.log(getData);
-          _createTable(getData);
+          for(var i in data){
+            data[i].status = dataHash[data[i].code];
+          }
+          console.log(data);
+          _createTable(data);
         } else {
           setTimeout(_see, 200)
         }

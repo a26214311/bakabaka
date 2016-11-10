@@ -15,7 +15,6 @@ opn('http://localhost:8088');
 app.get('/getorder', function (req, res) {
   var querydata = req.query;
   var orderid = querydata.d;
-  console.log(orderid);
   superagent.post('http://www.cnpex.com.au/Home/Query')
     .set('Content-Type', 'application/x-www-form-urlencoded')
     .send('OrderId=' + orderid)
@@ -34,5 +33,10 @@ app.get('/getorder', function (req, res) {
 
 app.get('/', function (req, res) {
   var data = fs.readFileSync('index.html', 'utf-8');
+  res.send(data);
+});
+
+app.get('/bill', function (req, res) {
+  var data = fs.readFileSync('bill.json', 'utf-8');
   res.send(data);
 });
