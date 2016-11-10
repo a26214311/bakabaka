@@ -6,8 +6,9 @@
       padding-top: 20px;
       padding-bottom: 20px;
     }
-    table{
-      font-size:14px;
+
+    table {
+      font-size: 14px;
     }
   </style>
   <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
@@ -35,10 +36,9 @@
       _see();
       function _see() {
         if (data.length == count) {
-          for(var i in data){
+          for (var i in data) {
             data[i].status = dataHash[data[i].code];
           }
-          console.log(data);
           _createTable(data);
         } else {
           setTimeout(_see, 200)
@@ -60,6 +60,15 @@
         for (var k = 0; k < ths.length; k++) {
           var td = $('<td>' + data[j][ths[k]] + '</td>');
           tr.append(td);
+        }
+        var tx = tr.find('td:last').text();
+        if (tx.indexOf('物流') + 1 || tx.indexOf('发往') + 1 || tx.indexOf('到达') + 1 || tx.indexOf('投递') + 1) {
+          console.log('aaa');
+          tr.attr('class', 'info')
+        }
+        if (tx.indexOf('签收') + 1) {
+          console.log('aaa');
+          tr.attr('class', 'success')
         }
         table.append(tr);
       }
