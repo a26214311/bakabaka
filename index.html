@@ -1,0 +1,24 @@
+<html>
+<head>
+<script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+function search(){
+	var querydata = document.getElementById("orderidlist").value;
+	var idlist = querydata.split(',');
+	var h='';
+	for(var i=0;i<idlist.length;i++){
+		h=h+'<iframe style="width:600px" src="/getorder?d='+idlist[i]+'"></iframe>';
+	}
+	console.log(h);
+	$('#main').html(h);
+}
+
+</script>
+</head>
+<body>
+<input id="orderidlist" type="text" style="width:800px"></input><br>
+<button onclick="search();">查询</button>
+<div id="main">
+</div>
+</body>
+</html>
