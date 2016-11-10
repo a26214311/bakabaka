@@ -7,13 +7,24 @@
       {code: 110004280093}
     ];
 
+
+    var getData = [];
+
     function search() {
-      var h = '';
       for (var i in data) {
-        h = h + '<iframe style="width:600px" src="/getorder?d=' + data[i].code + '"></iframe>';
+        var iframe = document.createElement("iframe");
+        iframe.src = "/getorder?d=" + data[i].code;
+
+        iframe.onload = function () {
+          var info = this.contentWindow.document.body.innerText;
+          var new_obj = {};
+          new_obj.code = info.substr(0, 12);
+          new_obj.status = info.substr(13).replace(/\r\n/g, '');
+          getData.push(new_obj);
+        };
+        document.body.appendChild(iframe);
       }
-      console.log(h);
-      $('#main').html(h);
+      console.log(getData)
     }
 
   </script>
