@@ -1,10 +1,13 @@
-
 {
   "name": "test111",
   "version": "1.0.0",
   "description": "",
+  "scripts": {
+    "server": "node index.js"
+  },
   "dependencies": {
     "express": "4.1.0",
+    "opn": "^4.0.2",
     "superagent": "*"
   }
 }
