@@ -10,7 +10,7 @@ app.listen('8088', function () {
   console.log('http://localhost:8088');
 });
 
-opn('http://localhost:8088');
+opn('http://localhost:8088', {app: 'chrome'});
 
 app.get('/getorder', function (req, res) {
   var querydata = req.query;
