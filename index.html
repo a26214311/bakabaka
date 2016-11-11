@@ -6,10 +6,12 @@
       padding-top: 20px;
       padding-bottom: 20px;
     }
+
     table {
       font-size: 14px;
     }
-    .progress{
+
+    .progress {
       display: none;
       margin-top: 20px;
     }
@@ -48,7 +50,7 @@
           _createTable(data);
         } else {
           setTimeout(_see, 200);
-          var progress = (count*100/data.length).toFixed(2);
+          var progress = (count * 100 / data.length).toFixed(2);
           $('.progress-bar').css('width', progress + '%');
           $('.progress-bar').text(progress + '%')
         }
@@ -71,7 +73,7 @@
           tr.append(td);
         }
         var tx = tr.find('td:last').text();
-        if (tx.indexOf('已收件') + 1 || tx.indexOf('发往') + 1 || tx.indexOf('已清关') + 1 || tx.indexOf('到达') + 1 || tx.indexOf('投递') + 1) {
+        if (tx.indexOf('已收件') + 1 || tx.indexOf('发往') + 1 || tx.indexOf('已清关') + 1 || tx.indexOf('到达') + 1 || tx.indexOf('投递') + 1 || tx.indexOf('派送') + 1) {
           tr.attr('class', 'info')
         }
         if (tx.indexOf('签收') + 1) {
@@ -82,7 +84,14 @@
         }
         table.append(tr);
       }
-      $('.progress').hide(300)
+      $('.progress').hide(300);
+      // 显示信息以便复制到 excel 表格
+      var arr = [];
+      $('tr').each(function () {
+        arr.push($(this).find('td:last').text())
+      });
+      arr.shift();
+      console.log(arr.join('\r\n'))
     }
 
   </script>
@@ -91,7 +100,8 @@
 <div class="container actions">
   <button class="btn btn-default" onclick="search();">查询</button>
   <div class="progress">
-    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+         aria-valuemax="100" style="width: 0;">
     </div>
   </div>
 </div>
