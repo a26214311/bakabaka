@@ -20,26 +20,6 @@
     $.getJSON('/bill', function (d) {
       data = d;
     });
-//var data = [
-//  {
-//    "addr": "北京市丰台区南三环西路搜宝商务中心3号楼1510",
-//    "name": "张钰婵",
-//    "code": "110002089120",
-//    "product": "211 黑6L"
-//  },
-//  {
-//    "addr": "北京市丰台区南三环西路搜宝商务中心3号楼1510",
-//    "name": "赵晓莉",
-//    "code": "110004280001",
-//    "product": "211 黑6L"
-//  },
-//  {
-//    "addr": "北京市丰台区南三环西路搜宝商务中心3号楼1510",
-//    "name": "赵晓莉",
-//    "code": "110004280022",
-//    "product": "212 黑7L"
-//  }
-//]
 
     function search() {
       $('#main').empty();
@@ -95,11 +75,9 @@
           tr.attr('class', 'info')
         }
         if (tx.indexOf('签收') + 1) {
-          console.log('aaa');
           tr.attr('class', 'success')
         }
-        if (tx.indexOf('未妥投') + 1) {
-          console.log('aaa');
+        if (tx.indexOf('未妥投') + 1 || tx.indexOf('查询失败') + 1) {
           tr.attr('class', 'danger')
         }
         table.append(tr);

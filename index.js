@@ -20,14 +20,18 @@ app.get('/getorder', function (req, res) {
     .send('OrderId=' + orderid)
     .end(function (err, sres) {
 //		    	console.log(sres);
-      var allhtml = sres.text;
-      var hfront = '<div class="wrap pd20">';
-      var n = allhtml.indexOf(hfront);
-      var s1 = allhtml.substring(n + hfront.length);
-      var hback = '<table class="webpost_query_table">';
-      var n2 = s1.indexOf(hback);
-      var resp = s1.substring(0, n2);
-      res.send(resp.substring(resp.indexOf('<h2>'), resp.indexOf('</h2>')));
+      if(sres != 'undefined'){
+        var allhtml = sres.text;
+        var hfront = '<div class="wrap pd20">';
+        var n = allhtml.indexOf(hfront);
+        var s1 = allhtml.substring(n + hfront.length);
+        var hback = '<table class="webpost_query_table">';
+        var n2 = s1.indexOf(hback);
+        var resp = s1.substring(0, n2);
+        res.send(resp.substring(resp.indexOf('<h2>'), resp.indexOf('</h2>')));
+      } else {
+        res.send(orderid + ' 查询失败')
+      }
     });
 });
 
