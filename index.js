@@ -20,7 +20,9 @@ app.get('/getorder', function (req, res) {
     .send('OrderId=' + orderid)
     .end(function (err, sres) {
 //		    	console.log(sres);
-      if(sres != 'undefined'){
+      if(err || !sres.ok){
+        res.send(orderid + ' 查询失败')
+      } else {
         var allhtml = sres.text;
         var hfront = '<div class="wrap pd20">';
         var n = allhtml.indexOf(hfront);
@@ -29,8 +31,6 @@ app.get('/getorder', function (req, res) {
         var n2 = s1.indexOf(hback);
         var resp = s1.substring(0, n2);
         res.send(resp.substring(resp.indexOf('<h2>'), resp.indexOf('</h2>')));
-      } else {
-        res.send(orderid + ' 查询失败')
       }
     });
 });
