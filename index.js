@@ -21,6 +21,8 @@ app.get('/getorder', function (req, res) {
     .end(function (err, sres) {
 //		    	console.log(sres);
       if(err || !sres.ok){
+        console.log(sres);
+        console.log(sres.text);
         res.send(orderid + ' 查询失败')
       } else {
         var allhtml = sres.text;
